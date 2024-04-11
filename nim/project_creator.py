@@ -8,6 +8,7 @@ Created on Wed Apr 10 13:53:05 2024
 import os
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import filedialog
 
 def create_project():
     project_name = project_name_entry.get()
@@ -15,8 +16,13 @@ def create_project():
         messagebox.showerror("Error", "Please enter a project name.")
         return
 
+    save_location = filedialog.askdirectory(title="Select save location")
+    if not save_location:
+        messagebox.showerror("Error", "Please select a save location.")
+        return
+
     # Create project directory
-    project_dir = os.path.join(os.getcwd(), project_name)
+    project_dir = os.path.join(save_location, project_name)
     os.makedirs(project_dir, exist_ok=True)
 
     # Create src directory
